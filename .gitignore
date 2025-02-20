@@ -3,3 +3,4 @@ stores.csv
 test.csv
 train.csv
 features.csv
+__pycache__

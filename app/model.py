@@ -11,7 +11,7 @@ class GlobalLSTM(nn.Module):
                  emb_dim_store=4,
                  emb_dim_dept=8,
                  emb_dim_type=2,
-                 num_numeric_features=15,
+                 num_numeric_features=8,
                  hidden_size=64,
                  num_layers=1,
                  dropout=0.2):
@@ -45,9 +45,16 @@ def load_model(num_stores, num_depts, num_types, num_numeric_features):
         num_stores=num_stores,
         num_depts=num_depts,
         num_types=num_types,
-        num_numeric_features=num_numeric_features
+        emb_dim_store=4,
+        emb_dim_dept=8,
+        emb_dim_type=2,
+        num_numeric_features=num_numeric_features,
+        hidden_size=64,
+        num_layers=1,
+        dropout=0.2
     )
-    model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
+    
+    model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device(DEVICE)))
     model.to(DEVICE)
     model.eval()
     return model

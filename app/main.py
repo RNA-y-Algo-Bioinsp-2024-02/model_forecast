@@ -67,6 +67,14 @@ def predict(request: PredictionRequest):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Error al escalar las variables numéricas: {str(e)}")
     
+    try:
+        df_input['Store'] =  df_input['Store_id']+1
+        df_input['Dept'] =  df_input['Dept_id']+1
+        mapeo = {0: 'A', 1: 'B', 2: 'C'}
+        df_input['Type'] = df_input['Type_id'].map(mapeo)       
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error al estructurar el df_input: {str(e)}")
+    
     # Genera las predicciones usando la función predict_store_custom
     pred_df = predict_store_custom(
         model=model,
